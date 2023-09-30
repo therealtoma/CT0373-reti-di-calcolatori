@@ -47,8 +47,9 @@ solitamente $M$ è una potenza di 2
 **esempio**
 un router wireless use frequenze che variano da $\text{2401 MHz}$ a $\text{2441 Mhz}$, assumendo che codifica $4$ bit per ogni simbolo
 Quanto è il bit-rate massimo?
+
 $$
-B = 2.441.000.000 - 2.401.000.000=40.000.000 \\
+B = 2.441.000.000 - 2.401.000.000=40.000.000 \qquad
 C=B\log_2({4}) = 40.000.000 \cdot 2 = 80Mb/s
 $$
 
