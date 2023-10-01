@@ -61,3 +61,15 @@ $$
 C=B\log_2(1+\frac{S}{N})
 $$
 dove $\frac{S}{N}$ rappresenta il rapporto segnale rumore
+
+### TSD
+Il time-sequence diagram descrive le interazioni tra due host comunicanti
+![TSD](./assets/02/tsd.png)
+Il tempo è rappresentato sull'asse verticale, inizia dall'altro e va avanti verso il basso.
+L'**invio** di un bit è rappresentato come chiamata della funzione di alto livello `DATA.req(0)` e la **ricezione** tramite `DATA.ind(0)`.
+Il motivo per cui la linea tratteggiata è obliqua è perchè l'informazione impiega del tempo ad arrivare a destinazione.
+#### rumore
+Nel caso in cui venga inviato un bit (`DATA.req(0)`) e si riceve altro (`DATA.ind(1)`) si ha un errore di ricezione causato dal **rumore**.
+
+#### de-sincronizzazione
+E' possibile che il destinatario riceva meno/più informazioni rispetto a quelle inviate a causa di un'errata sincronizzazione.
