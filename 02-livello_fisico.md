@@ -57,9 +57,11 @@ Il teorema di Nyquist ignora completamente il rumore, il che rende la ricezione 
 
 #### teorema di Shannon
 Il teorema di Shannon dice che se si ha un segnale con banda $B$ e un SNR $S/N$ allora la capacità massima teorica è:
+
 $$
 C=B\log_2(1+\frac{S}{N})
 $$
+
 dove $\frac{S}{N}$ rappresenta il rapporto segnale rumore
 
 ### TSD
