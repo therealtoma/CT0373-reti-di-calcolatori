@@ -33,6 +33,12 @@ Se la trasmissione è composta da tutti `1`, si dovrà aggiungere uno `0` ogni 5
 ---
 Il protocollo **bit-stuffing** è stato ormai superato da protocolli più efficienti come **character-stuffing** e **octet-stuffing**.
 
+## SDUs
+I Service Data Unit sono i dati ricevuti dal livello superiore (rete) che vengno incapsulati all'interno di un frame datalink.
+Ecco il funzionamento nel dettaglio:
+1. **ricezione dei dati**: quando i dati sono ricevuto dal livello superiore essi sono definiti **SDUs**
+2. **incapsulamento**
+
 ## acknowledging frames
 Sono dei frame speciali che non contengono dati, sono utilizzati semplicemente per confermare che il frame precedentemente è stato correttamente ricevuto.
 Esiste un modo per distinguere gli ack dagli altri frame; viene seprato in due:
@@ -40,3 +46,12 @@ Esiste un modo per distinguere gli ack dagli altri frame; viene seprato in due:
 - **payload**: contiene l'informazione che deve essere trasmessa
 ![ack](./assets/03/ack.png)
 Questa tecnica risulta utile per evitare di sovraccaricare il ricevente, ma non abbiamo ancora considerato la possibilità che ci siano errori nella trasmissione.
+
+## link errors
+Un frame può contenere **errori**: bit invertiti, bit mancanti, bit in eccesso
+
+### error detection
+la più semplice forma di **error detection** consiste nel **bit di parità**: consiste in un bit aggiunto al frame per indicare se il numero di `1` è pari o dispari. Il ricevitore controlla se il numero di `1` è pari o dispari (attraverso il bit parità), se è diverso da quello che dovrebbe essere, allora c'è un errore.
+
+- **bit di parità nel mittente**: se il numero di `1` è dispari, viene aggiunto `1` altri `0` Computazionalmente, per capire il bit da aggiungere viene fatto il modulo 2 della somma dei bit del frame (nel caso parità dispari, al risultato è aggiunto 1, dipende da come ci si è organizzati per la trasmissione).
+- **bit di parità nel ricevitore**:
