@@ -7,3 +7,28 @@ L'unità di informazione base che viene inviata è chiamato **frame**: è una se
 Idealmente quando il mittente ha finito di inviare informazioni, semplicemente smette di trasmettere.
 Il problema è che, modulando il segnale, il [carrier signal](./02-livello_fisico.md) è sempre acceso.
 E' necessario quindi trovare un modo per specificare l'inizio e la fine di un frame.
+
+### bit stuffing
+L'idea è che viene riservata la stringa `01111110` per indicare l'inizio e la fine di un frame.
+In questo modo il problema non è completamente risolto, infatti, che succede se il mittente invia un messaggio codificato esaustivamente con `01111110`?
+Il mitttente deve assicurarsi che non ci siano mai sei `1` di fila.
+#### encoding
+- all'inizio viene inviata la sequenza `01111110`
+- inviati i frame necessari
+- inserito uno `0` dopo il quinto `1` consecutivo
+- alla fina viene inviata la sequenza `01111110`
+#### decoding
+- viene ricevuta la sequenza `01111110`
+- ricevuti i frame
+- se uno `0` segue 5 `1` consecutivi viene rimosso
+- viene ricevuta la sequenza `01111110`
+
+### limitazioni
+per poter rappresentare correttamente le informazioni è necessario inviare extra dati rispetto al messaggio di partenza (*frame iniziale, frame finale, bit stuffing*)
+Queste informazioni aggiuntive vengono chiamate **overhead** che riduece il bit-rate definito dalle formule di *Shannon* e *Nyquist*.
+**caso peggiore**
+Sono costantemente aggiunti `2 bytes` di dati per indicare l'inizio e la fine della trasmissione.
+Se la trasmissione è composta da tutti `1`, si dovrà aggiungere uno `0` ogni 5, si sta riducendo di $\frac{1}{6}$ il bit-rate.
+
+---
+Il protocollo **bit-stuffing** è stato ormai superato da protocolli più efficienti come **character-stuffing** e **octet-stuffing**.
