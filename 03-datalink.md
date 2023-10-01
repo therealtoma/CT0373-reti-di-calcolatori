@@ -32,3 +32,11 @@ Se la trasmissione è composta da tutti `1`, si dovrà aggiungere uno `0` ogni 5
 
 ---
 Il protocollo **bit-stuffing** è stato ormai superato da protocolli più efficienti come **character-stuffing** e **octet-stuffing**.
+
+## acknowledging frames
+Sono dei frame speciali che non contengono dati, sono utilizzati semplicemente per confermare che il frame precedentemente è stato correttamente ricevuto.
+Esiste un modo per distinguere gli ack dagli altri frame; viene seprato in due:
+- **header**: non contiene dati, semplicemente indica il tipo del frame (`1` per **ack**, `0` per **dati**)
+- **payload**: contiene l'informazione che deve essere trasmessa
+![ack](./assets/03/ack.png)
+Questa tecnica risulta utile per evitare di sovraccaricare il ricevente, ma non abbiamo ancora considerato la possibilità che ci siano errori nella trasmissione.
