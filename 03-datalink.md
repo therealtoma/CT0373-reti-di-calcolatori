@@ -37,7 +37,9 @@ Il protocollo **bit-stuffing** è stato ormai superato da protocolli più effici
 I Service Data Unit sono i dati ricevuti dal livello superiore (rete) che vengno incapsulati all'interno di un frame datalink.
 Ecco il funzionamento nel dettaglio:
 1. **ricezione dei dati**: quando i dati sono ricevuto dal livello superiore essi sono definiti **SDUs**
-2. **incapsulamento**
+2. **incapsulamento**: vengono incapsulati gli SDU all'interno di un frame datalink (PDU) contenente intestazione e coda
+3. **trasmissione**: il frame viene trasmesso al livello fisico
+4. **ricezione**: il frame viene ricevuto dal livello fisico del destinatario, passato al livello datalink che trasforma il frame in un SDU da passare al livello superiore
 
 ## acknowledging frames
 Sono dei frame speciali che non contengono dati, sono utilizzati semplicemente per confermare che il frame precedentemente è stato correttamente ricevuto.
