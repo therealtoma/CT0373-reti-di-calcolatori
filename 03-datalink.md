@@ -53,7 +53,24 @@ Questa tecnica risulta utile per evitare di sovraccaricare il ricevente, ma non 
 Un frame può contenere **errori**: bit invertiti, bit mancanti, bit in eccesso
 
 ### error detection
+E' il processo per controllare che all'interno del frame non siano presenti errori, si occupa solamente di rilevarne la presenza, non si occupa di correggerli.
+#### bit di partià
 la più semplice forma di **error detection** consiste nel **bit di parità**: consiste in un bit aggiunto al frame per indicare se il numero di `1` è pari o dispari. Il ricevitore controlla se il numero di `1` è pari o dispari (attraverso il bit parità), se è diverso da quello che dovrebbe essere, allora c'è un errore.
 
 - **bit di parità nel mittente**: se il numero di `1` è dispari, viene aggiunto `1` altri `0` Computazionalmente, per capire il bit da aggiungere viene fatto il modulo 2 della somma dei bit del frame (nel caso parità dispari, al risultato è aggiunto 1, dipende da come ci si è organizzati per la trasmissione).
-- **bit di parità nel ricevitore**:
+- **bit di parità nel ricevitore**: supponendo di utilizzare la parità dispari, il ricevitore sa che il numero di `1` deve essere dispari. Se non sono presenti errori, l'SDU viene passato al livello superiore, altrimenti sono attuate delle azioni in base al design del livello datalink (richiesto il reinvio, scartato, ...)
+
+Una limitazione del **bit di parità** sta nel caso in cui sia presente un numero pari di errori, questo fa si che il ricevitore non noti la presenza di errori
+
+#### Internet checksum
+E' un algoritmo che permette di rilevare errori in un frame.
+1. **calcolo**: 
+    - i dati sono divisi in blocchi di dimensione fissa (es. 16 bit)
+    - vengono sommati tutti i blocchi e si controlla la presenza di un riporto (**carry**) che viene aggiunto alla somma
+    - viene fatto il complemento a 2 (inversione dei bit)
+2. **inserimento**: il risultato della somma è inserito all'interno dell'header del frame
+3. **verifica**: 
+    - Il ricevitore calcola il checksum sui dati ricevuti (compreso il checksum nell'header)
+    - se i due checksum corrispondono allora non ci sono errori, altrimenti sono presenti errori
+
+Non è l'algoritmo più avanzato (CRC o crittografia lo sono) ma fornisce una buon livello di verifica dell'integrità dei dati.
