@@ -125,3 +125,31 @@ Nell'immagine A e B si sono accordati per avere una sliding window grande 5, in 
 La finestra scorrevole implementa il controllo di flusso e riduce l'impatto dell'RTT; in questo modo i frame arrivano in blocco e vengono ACKd in blocco.
 Abbiamo bisogno di una politica per gestire la **perdita** di qualche frame.
 **side note**: se prendiamo per esempio un server, il cui compito è gestire molte connessioni allo stesso tempo, la politica oltre a funzionare correttamente deve essere anche veloce. In questo caso non importa se è perfetta.
+
+## go-back-n
+- **ricevitore**:
+  - accetta solamente i frame che arrivano in-sequence
+  - appena il destinatario riceve un frame, invia l'ACK contenente il sequence number dell'ultimo frame in-sequence
+  - il destinatario scarta ogni frame che non è in-sequence
+  - L'ACK è considerato *cumulativo* nel senso che, oltre a confermare il suo sequence number, conferma anche tutti i frame precedenti
+  - I frame sono processati uno ad uno, il ricevitore non contiene alcun buffer
+- **mittente**:
+  - il mittente possiede un **buffer** della dimensionde della sliding window
+  - i frame sono inviati con sequence number crescenti fino a quando non si riempie la sliding window
+  - se il buffer è pieno, il mittente si ferma in attesa degli ACK
+  - il mittente, dato che risulta computazionalmente complicato mantenere un timer per ogni frame da inviare, ne ha solamete uno condiviso che viene avviato quando il primo frame è inviato.
+  - Appena il mittente riceve un ACK
+    - rimuove tutti i frame ACKd (gli ACK sono cumulativi)
+    - fa ripartire il timer solamente se ci sono ancora frame nel buffer
+  - se scade il timer il mittente ritrasmette tutti i frame nel buffer che non sono stati ACKd
+
+#### limitazioni
+go-back-n è semplice da implementare e aiuta a ridurre l'impatto dell'RTT, ma, se ci sono molte perdite risulta inefficiente:
+- il detinatario accetta solo i frame in-sequence
+- il mittente invia **tutti** i frame non confermati
+
+### selective repeat
+E' un modo per migliorare il go-back-n
+- il destinatario ora contiene un buffer e accetta i frame all'interno della finestra
+- nell'ACK viene inviato, oltre al sequence number subito prima l'inizio della finestra, la lista di sequence number dei frame ricevuti correttamente ma fuori ordine
+- il mittente quindi ritrasmette solamente quelli che non sono stati ACKd
