@@ -105,3 +105,10 @@ Il destinatario deve avere un modo per distinguere i frame duplicati dai frame n
   - riceve il frame con il sequence number `0`
     - se il frame è corretto, invia l'ACK con il sequence number `0`
     - se il frame è corrotto, scarta il frame e non invia l'ACK
+
+Aggiungendo il bit nell'header del frame è stata cambiata la struttura del frame, l'interfaccia superiore non è a conoscenza di questo cambiamento.
+
+**performance**
+Soffermiamoci un momento sulle performance di questo protocollo.
+Supponiamo di voler trasmettere un frame di `1500B`, il tempo di trasmissione è di `10ms` (`RTT=20ms`). Assumiamo inoltre che la rete abbia una capacità di $10^9 b/s$. Il frame impegherà quindi $\frac{1500*8}{10^9}=0.012ms$ ad essere trasmesso (l'ACK è molto piccolo quindi trascurabile).
+Non stiamo sfruttando le capacità della rete perchè nello stesso tempo siamo in grado di inviare molti più frame.
