@@ -74,3 +74,34 @@ E' un algoritmo che permette di rilevare errori in un frame.
     - se i due checksum corrispondono allora non ci sono errori, altrimenti sono presenti errori
 
 Non è l'algoritmo più avanzato (CRC o crittografia lo sono) ma fornisce una buon livello di verifica dell'integrità dei dati.
+
+## reliable transport
+#### error detection vs error correction
+attraverso il checksum siamo in grado di capire se c'è stato un errore (error detection).
+Possiamo anche implementare una tecnica di **error correction** che consiste nella ridondanza dei dati in modo da fare sia error detection che error correction.
+Il modo più semplice consiste nell'utilizzare nel **redundant encoding**: 1 bit è mappato con $n$ bit, in questo modo è possibile rilevare e correggere un errore (es. `1` è rappresentato con `111`).
+E' un approccio poco efficiente, stiamo sprecando molta banda per rappresentare un singolo bit. Il moderno approccio consiste nel **scartare** i frame con errori.
+
+#### errori nel data frames
+Viene introdotto un **timer**, parte quando il mittente invia il frame e termina quando riceve l'ACK dal destinatario.
+- **ACK ricevuto**: il frame è stato ricevuto correttamente, il timer viene fermato
+- **ACK non ricevuto**: il frame è stato perso, il timer scade e viene ritrasmesso il frame
+- **scade il timer**: o non è mai arrivato il frame o non è mai arrivato l'ACK, il frame viene ritrasmesso
+
+#### errori nell'ACK
+Nel caso in cui l'ACK venga perso, il mittente non riceve nessuna informazione e quindi non sa se il frame è stato ricevuto correttamente o meno. In questo modo ritrasmette il frame, il problema sta nel fatto che il mittente riceve lo stesso frame due volte e non sa se è un nuovo frame o se è duplicato.
+
+#### sequence number
+Il destinatario deve avere un modo per distinguere i frame duplicati dai frame nuovi. Viene aggiunto all'header del frame un sequence number composto da un bit che viene alternato, questo processo è chiamato **Alternate Bit Protocol (ABP)**.
+
+### Alternate Bit Protocol
+![Alternate Bit Protocl](./assets/03/abp.png)
+- **mittente**: 
+    - invia il frame con il sequence number `0`
+    - aspetta l'ACK
+    - se l'ACK è ricevuto, invia il frame con il sequence number `1`
+    - se l'ACK non è ricevuto, ritrasmette il frame con il sequence number `0`
+- **destinatario**:
+  - riceve il frame con il sequence number `0`
+    - se il frame è corretto, invia l'ACK con il sequence number `0`
+    - se il frame è corrotto, scarta il frame e non invia l'ACK
