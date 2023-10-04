@@ -112,3 +112,16 @@ Aggiungendo il bit nell'header del frame è stata cambiata la struttura del fram
 Soffermiamoci un momento sulle performance di questo protocollo.
 Supponiamo di voler trasmettere un frame di `1500B`, il tempo di trasmissione è di `10ms` (`RTT=20ms`). Assumiamo inoltre che la rete abbia una capacità di $10^9 b/s$. Il frame impegherà quindi $\frac{1500*8}{10^9}=0.012ms$ ad essere trasmesso (l'ACK è molto piccolo quindi trascurabile).
 Non stiamo sfruttando le capacità della rete perchè nello stesso tempo siamo in grado di inviare molti più frame.
+
+### pipelining
+questa tecnica consiste nell'inviare una serie di frame senza aspettare l'acknowledgment dal destinatario. Dobbiamo comunque evitare di sovraccaricare la rete e mantenere l'affidabilità, introduciamo la **sliding window**.
+
+### sliding window
+![sliding window](./assets/03/sliding_window.png)
+In quest o caso i numeri di sequenza sono composti da una serie di bit per poter garantire la trasmissione di piu frame.
+Nell'immagine A e B si sono accordati per avere una sliding window grande 5, in questo modo A invierà 5 frame e si fermerà in attesa dell'ACK. Appena viene ricevuto l'ACK relativo al sequence number più basso nella sliding window si sposta la sliding window.
+
+#### flow control and frame loss
+La finestra scorrevole implementa il controllo di flusso e riduce l'impatto dell'RTT; in questo modo i frame arrivano in blocco e vengono ACKd in blocco.
+Abbiamo bisogno di una politica per gestire la **perdita** di qualche frame.
+**side note**: se prendiamo per esempio un server, il cui compito è gestire molte connessioni allo stesso tempo, la politica oltre a funzionare correttamente deve essere anche veloce. In questo caso non importa se è perfetta.
