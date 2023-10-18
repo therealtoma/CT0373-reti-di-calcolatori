@@ -18,7 +18,7 @@ Nel caso in cui l'ACK venga perso, il mittente non riceve nessuna informazione e
 Il destinatario deve avere un modo per distinguere i frame duplicati dai frame nuovi. Viene aggiunto all'header del frame un sequence number composto da un bit che viene alternato, questo processo è chiamato **Alternate Bit Protocol (ABP)**.
 
 ### Alternate Bit Protocol
-![Alternate Bit Protocl](./assets/03/abp.png)
+![Alternate Bit Protocl](./assets/04/abp.png)
 - **mittente**: 
     - invia il frame con il sequence number `0`
     - aspetta l'ACK
@@ -40,7 +40,7 @@ Non stiamo sfruttando le capacità della rete perchè nello stesso tempo siamo i
 questa tecnica consiste nell'inviare una serie di frame senza aspettare l'acknowledgment dal destinatario. Dobbiamo comunque evitare di sovraccaricare la rete e mantenere l'affidabilità, introduciamo la **sliding window**.
 
 ### sliding window
-![sliding window](./assets/03/sliding_window.png)
+![sliding window](./assets/04/sliding_window.png)
 In quest o caso i numeri di sequenza sono composti da una serie di bit per poter garantire la trasmissione di piu frame.
 Nell'immagine A e B si sono accordati per avere una sliding window grande 5, in questo modo A invierà 5 frame e si fermerà in attesa dell'ACK. Appena viene ricevuto l'ACK relativo al sequence number più basso nella sliding window si sposta la sliding window.
 
