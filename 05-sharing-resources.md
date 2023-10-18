@@ -6,7 +6,7 @@ fino ad ora ci siamo sempre concentrati su due host. Nel mondo reale la connessi
 - **pro**: è una rete molto robusta, che consente una comunicazione diretta con ogni host
 - **contro**: la rete è difficile da far scalare, infatti, se si aggiunge un nodo, bisogna creare molti collegamenti
 
-#### bus network
+#### bus network
 ![bus network](./assets/05/bus-network.png)
 - **pro**: molto economica come rete, infatti è presente un solo canale di comunicazione
 - **contro**: non scala, infatti tutte le comunicazioni devono passare per lo stesso cavo; inoltre non è nemmeno robusta, se il cavo si guasta, la rete smette di funzionare
@@ -30,10 +30,10 @@ le reti **wireless** sono organizzate logicamente come una rete a stella, ma pra
 Quindi è impossibile che non ci siano interferenze, è necessario allora trovare tecniche che permettano di gestire le collisioni
 
 ## collision detection
-#### frequency division
+#### frequency division
 l'idea consiste nel far passare le comunicazioni in frequnze diverse, in modo da evitare le collisioni. è quello che succede nelle comunicazioni wireless: quando viene acceso un access point, ascolta la rete per caprire su che range di frequenze poter trasmettere, gli host che si collegano su quell'ap dovranno stare in quel range di frequenze
 
-#### TDMA
+#### TDMA
 è l'acronimo di **Time Division Multiple Access**. Dati $m$ trasmettitori, il tempo è diviso in $m$ slot e ogni slot è assegnato ad uno specifico terminale.
 Quando tutti terminali trasmettono allora la rete è definita **satura**, in questa condizione TDMA ha raggiunto la **massima efficienza**.
 Nel caso in cui un solo host deve trasmettere deve attendere comunque il suo slot per poter trasmettere, TDMA risulta quindi **inefficiente** quando la rete è scarica e **efficiente** quando la reta è a congestione
