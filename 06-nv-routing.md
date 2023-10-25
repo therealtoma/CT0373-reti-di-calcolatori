@@ -43,3 +43,78 @@ in questo approccio, gli indirizzi sono divisi in **blocchi**; ai router viene q
 Nel momento in cui un host cambia network, il suo indirizzo cambia di conseguenza (ci si sposta da casa all'università). è fondamentale quindi trovare un modo per:
 - un modo per assegnare un indirizzo ad un host che si collega alla rete
 - garantire all'host il mantenimento delle connessioni passate nel momento in cui cambia rete
+
+### algoritmi di routing
+
+#### hot potato
+L'algoritmo funziona come segue:
+un host vuole inviare un pacchetto, sapendo solamente dov'è l'idirizzo destinazione, invia il pacchetto a tutti i link che, se conoscono la destinazione, instradano il pacchetto, altrimenti fanno broadcast. se un host riceve un pacchetto non destianto a lui, lo scarta.
+![hot potato](./assets/06/hot-potato.png)
+questo tipo di algoritmo è usato in reti semplici e di piccole dimensioni ed è fondamentale che la rete abbia una forma ad **albero**, altrimente viene creato un **loop**.
+
+#### virtual circuits
+il principio di funzionamento è preso dalla rete telefonica, dove un circuito fisico collega il mittente e il destinatario.
+Un approccio simile è possibile applicarlo quando la rete è centralizzata. Per ogni coppia di mittente/ricevitore, è definito un percorso. L'header conterrà quindi il **circuito virtuale** al quale appartiene il pacchetto.
+Questa tecnologia non è molto usata.
+
+---
+
+#### control plane
+- **algoritmo**: sequenze di istruzioni volte a risolvere un problema
+- **protocollo di routing**: contiene una serie di specifiche usate per implementare l'algoritmo all'interno del router
+- **daemon**: è il software nel router che si occupa di implementare il protocollo di routing; è la logica che crea i pacchetti di controllo e li invia, mantiene le tabelle di routing
+
+#### routing table vs forwarding table
+una tabella di **routing** contiene informazioni più generali rispetto ad una tabella di forwarding; infatti, lo stesso router può contenere diverse tabelle di routing (una tabella di routing puo, per esempio, essere gestita dal deamon, l'altra dall'amministratore).
+L'obiettivo di un protocollo di routing è quello di riempire le tabelle di routing nei vari router della rete.
+La tabella di **forwarding** all'interno di un router è creata unendo le diverse tabelle di routing. Le tabelle di forwarding sono usate dai router per prendere decisioni su dove indirizzare i pacchetti
+
+---
+
+#### distance vector routing (dv-routing)
+è un algoritmo efficiente, semplice da implementare, leggero ma lento a convrgere.
+Funzionamento:
+- ad ogni link viene assegnato un **costo** (si riceve una penalità se si passa per un link costoso)
+- ogni router inizializza la tabella di routing con il suo indirizzo e distanza pari a `0`
+- peridocamente ogni router invia la sua tabelle di routing (dv) a i nodi vicini
+
+pseudocodice per **inviare** il distance vector:
+```python
+Every N seconds:
+    v = Vector()
+    for d in R[]:
+        # add destination d to vector
+        v.add(Pair(d, R[d].cost))
+    for i in interfaces:
+        # send vector v on this interface
+        send(v, i)
+```
+
+pseudocodice per **ricevere** il distance vector:
+```python
+# V: received Vector
+# l : link over which vector is received
+def received(V, l):
+    # received vector from link l
+    for d in V[]:
+        if not (d in R[]):
+            # new route
+            R[d].link = l
+            R[d].cost = V[d].cost + l.cost
+            R[d].time = new()
+        else:
+            # existing route
+            if ((V[d].cost + l.cost) < R[d].cost) or (R[d].link == l):
+                R[d].link = l
+                R[d].cost = V[d].cost + l.cost
+                R[d].time = now()
+```
+
+- line 6: se il distance vector contiene un indirizzo di destinzaione che il router non conosce allora lo aggiunge alla routing table
+- line 13: se la destinazione è già conosciuta, la aggiorana solamente se:
+  - il costo è minore rispetto a quello attuale
+
+#### failure recovery
+qundo, ogni `N` secondi tutti i router inviano il loro distance vector, il timestamp deve essere aggiornato. Nessun router dovrebbe avere un timestamp più grande di `N` secondi. Se un router ha un timestamp più grande di `k x N` secondi, il suo costo è impostato a $\infty$.
+Dopo questo tempo, il router viene rimosso dalla tabella di routing.
+![dv-routing](./assets/06/dv-routing.png)
