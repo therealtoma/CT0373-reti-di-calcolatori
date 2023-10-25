@@ -30,3 +30,16 @@ Ogni router si occupa di svolgere due funzioni:
 
 All'interno di un contesto privato è possibile che eista un controller dedicato che si occupa di gestire l'intera rete privata; è in grado quindi di configurare le tabelle di routing, questo approccio è detto **centralizzato**.
 All'interno di Internet un approccio centralizzato risulta impossibile, per questo si usa l'approccio **distribuito**
+
+### addressing
+
+**flat addressing**
+in questo approccio gli indirizzi sono completamente scorrelati tra di loro, infatti sono quelli decisi dal produttore.
+- **pro**: non è necessario fare alcun tipo di configurazione
+- **contro**: in questo modo la rete non scala. Dato che Internet contiene miliardi di indirizzi, questo significa che ogni forwarding table deve avere miliardi di entry.
+
+**hirerchical addressing**
+in questo approccio, gli indirizzi sono divisi in **blocchi**; ai router viene quindi assegnato uno o più blocchi. In questo modo le dimensioni delle forwarding tables sono molto più piccole.
+Nel momento in cui un host cambia network, il suo indirizzo cambia di conseguenza (ci si sposta da casa all'università). è fondamentale quindi trovare un modo per:
+- un modo per assegnare un indirizzo ad un host che si collega alla rete
+- garantire all'host il mantenimento delle connessioni passate nel momento in cui cambia rete
