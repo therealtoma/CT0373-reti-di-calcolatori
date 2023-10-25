@@ -26,4 +26,7 @@ Le decisioni sono prese in base a una **forwarding table**: una struttura dati c
 
 Ogni router si occupa di svolgere due funzioni:
 - **data plane**: si occupa di instradare i pacchetti, in base al contenuto delle tabelle di routing
-- **control plane**: processo che si occupa di creare e mantenere le tabelle di routing. Il modo più semplice per creare le tabelle consiste nel farlo a mano, questa cosa non scala, è necessario trovare un modo per farlo automaticamente.
+- **control plane**: processo che si occupa di creare e mantenere le tabelle di routing. Il modo più semplice per creare le tabelle consiste nel farlo a mano, questa cosa non scala, è necessario trovare un modo per farlo automaticamente. Introduciamo quindi dei pacchetti speciali non contenenti dati, ma informazioni utili per creare le tabelle di routing
+
+All'interno di un contesto privato è possibile che eista un controller dedicato che si occupa di gestire l'intera rete privata; è in grado quindi di configurare le tabelle di routing, questo approccio è detto **centralizzato**.
+All'interno di Internet un approccio centralizzato risulta impossibile, per questo si usa l'approccio **distribuito**
