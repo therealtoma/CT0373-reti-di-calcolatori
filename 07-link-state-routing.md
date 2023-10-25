@@ -14,3 +14,12 @@ alcune **assunzioni**:
 - periodicamente i router inviano un pacchetto (`HELLO` packet) ogni `N` secondi su tutte le interfacce al quale è connesso
 - durante questo processo, il router è in grado di capire a chi è connesso
 - questi messaggi sono utili a capire se un router non è più disponibile (se dopo `k x N` secondi non si riceve un messaggio da un router, si può assumere che sia offline)
+
+#### messaggi LSP
+quando un router è a conoscenza dei suoi vicini, deve costruire un **pacchetto LST** per informare i router della rete; un pacchetto contiene:
+- `LSP.Router`: indica l'indirizzo del mittente del pacchetto
+- `LSP.age`: tempo di vita rimasto al pacchetto
+- `LSP.seq`: il sequence number del pacchetto, incrementato ad ogni step
+- `LSP.Links[]` lista dei link vicini
+  - `LSP.Link[i].Id`: l'id del vicino
+  - `LSP.Link[i].cost`: costo del link
