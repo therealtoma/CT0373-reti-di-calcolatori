@@ -24,3 +24,19 @@ Il ruolo del livello di trasporto (livello tra *applicazione* e *network*) è so
 le applicazioni non sanno nulla di segmenti e pacchetti, hanno solamente un **buffer** con il livello di trasporto che usano per inviare i dati.
 Il livello di trasporto spezza i dati inviati dall'applicazione in **segmenti** e li passa al livello di rete
 
+#### servizi non orientati alla connessione
+servizio **stateless**: i segmenti viaggiano indipendentemente l'uno dall'altro, il livello di trasporto non salva nessuna variabile di stato.
+vengono forniti:
+- scambio di dati *unreliable*, solitamente con rilevamento di errori
+- *multiplexing* agli endpoint
+
+per poter garantire il *rilevamento degli errori*, il livello di trasporto aggiunge all'**header** un **checksum** che viene usato per rilevare gli errori.
+
+il *multiplexing* (in modo molto brutto significa "avere un singolo canale per diverse applicazioni") viene fatto sfruttando il concetto di **porta**
+
+**numeri di porta**
+L'header del segmento contiene due campi: 
+- **porta sorgente**: indica la porta del mittente
+- **porta destinazione**: indica la porta del destinatario
+
+quando il livello di trasporto riceve un pacchetto, lo invia all'applicazione a cui è associata quella porta.
