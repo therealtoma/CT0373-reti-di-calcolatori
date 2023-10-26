@@ -31,3 +31,10 @@ Ogni router che implementa questo protocollo ha un link state databse (LSDB) che
 - appena un router riceve un pacchetto LSP, controlla all'interno del suo LSDB se ha quello specifico sequence number
 - se il pacchetto è presete nell'LSDB significa che il router ha gia distribuito quel pacchetto e non deve inoltrarlo
 - se il pacchetto non è presente nel DB, allora lo salba nel DB e lo inoltra a tutti i nodi eccetto chi glielo ha inviato
+
+#### conclusioni LSP
+1. i protocolli LSP forniscono maggiori informazioni ai router
+2. quando avviene un cambiamento nella rete, i pacchetti LSP sono inviati in fretta e raggiunge convervenza velocemente
+3. LS routing è computazionalmente più costoso rispetto al DV routing
+4. Dato che su Internet sono presenti tanti router, eseguire il l'algoritmo di Dijsktra per trovare il percorso risulta molto complicato
+5. Inoltre, essendoci molti router, la probabilità di rottura risulta molto alta.
