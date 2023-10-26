@@ -23,3 +23,11 @@ quando un router è a conoscenza dei suoi vicini, deve costruire un **pacchetto 
 - `LSP.Links[]` lista dei link vicini
   - `LSP.Link[i].Id`: l'id del vicino
   - `LSP.Link[i].cost`: costo del link
+
+#### flooding LSP
+i pacchetti LSP devono essere correttamente distribuiti prima che i router abbiano un routing table funzionante
+Un algoritmo di **flooding** si occupa di distribuire correttamente i pacchetti LSP a tutti i router della rete.
+Ogni router che implementa questo protocollo ha un link state databse (LSDB) che contienr, per ogni router della rete, il più recente pacchetto LSP.
+- appena un router riceve un pacchetto LSP, controlla all'interno del suo LSDB se ha quello specifico sequence number
+- se il pacchetto è presete nell'LSDB significa che il router ha gia distribuito quel pacchetto e non deve inoltrarlo
+- se il pacchetto non è presente nel DB, allora lo salba nel DB e lo inoltra a tutti i nodi eccetto chi glielo ha inviato
