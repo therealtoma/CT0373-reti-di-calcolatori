@@ -40,3 +40,38 @@ L'header del segmento contiene due campi:
 - **porta destinazione**: indica la porta del destinatario
 
 quando il livello di trasporto riceve un pacchetto, lo invia all'applicazione a cui è associata quella porta.
+
+#### servizi orientati alla connessione
+questi servizi instaurano una connessione tra due endpoint (solitamente tra client e server)
+la connessione ha uno **stato**: rappresentato da una seri di variabili interne usate per tenera traccia dello stato della connessione.
+Prima di poter inviare dati è necessario stabilire una connessione tra i due host, che verrà rilasciata quando non sarà più necessaria.
+Il multiplexing funziona come nei servizi non orientati alla connessione
+
+**connection set-up**
+stabilire la connessione può essere semplice come l'invio di due frame. Bisogna comunque tenere conto che il livello di rete è *unreliable*. Una serie di eventi potrebbero succedere:
+
+- **pacchetti duplicati**
+La richiesta di connessione, inviata una sola volta, viene ricevuta due volte.
+L'idea di usare identificativi univoci è da scartare perchè implica che il server deve salvare la lista di tutti questi id.
+
+**Maximum Segment Life (MSL)**
+anche se il livello rete è unreliable, bisogna fare delle assunzioni: i duplicati possono essere causati da un loop temporaneo. Definiamo quindi un **MSL** che indica il tempo massimo che un pacchetto può circolare all'interno della rete
+
+**transport clock**
+il livello di trasporto ha un proprio clock che viene usato per gestire il MSL. Quando il livello di trasporto riceve un pacchetto, controlla il timestamp del pacchetto e lo confronta con il suo clock. Se il pacchetto è vecchio, viene scartato.
+
+**initial sequence number (ISN)**
+ogni richiesta di connessione (CR) ha un ISN. Il server, quando invia una risposta (CA) allega il ISN. Quando il client riceve la risposta controlla l'ISN e vede se è relativo ad una connessione attiva.
+
+**comunicazione a due vie**
+le connessioni, essendo bi-direzionali, necessitano della presenza di un ISN per ogni lato della connessione.
+
+#### three-way handshake
+![three-way-handshake](./assets/08/three-way-handshake.png)
+
+**interruzione della connessione**
+entrambi gli endpoind devono essere a conoscenza della chiusura della connessione:
+- il primo endpoint invia la richiesta di chiusura
+- il secondo invia ACK e la sua richiesta di chiusura
+- il primo risponde con ACK
+- la connessione è stata chiusa
