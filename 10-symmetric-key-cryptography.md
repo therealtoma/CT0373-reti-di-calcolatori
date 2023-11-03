@@ -40,3 +40,28 @@ i due partecipanti della connessione hanno una chiave condivisa, usata per compu
 - contro: è necessario un canale dedicato per poter decidere la chiave
 
 HMAC fornisce autenticazione e integrità ma non **secretezza**, essa è ottenuta tramite **encryption**.
+
+#### symetric key encryption
+gli elementi necessari per un sistema di encryption sono:
+- **cipher**: l'algoritmo di encryption
+- **key**: il messaggio che si vuole criptare
+- **principio di kerchoffs**
+  - il cipher deve essere pubblico
+  - il segreto è quindi la chiave
+
+esistono due tipi di algoritmi:
+- algoritmi di **sostituzione**: un simbolo è sostituito da un altro
+- algoritmi di **trasposizione**: i simboli sono riordinati
+
+**One-Time-Pad (OTP)**
+per fare l'encryption del messaggio viene preso un subset della chiave e viene fatto un XOR con il messaggio.
+
+i moderni algoritmi consistono nel combinare i pricipi di **sostituzione** e **trasposizione** per ottenere un algoritmo con le seguenti caratteristiche:
+- la lunghezza della chiave è fissa
+- la correlazione tra il messaggio originale e quello cifrato è minima
+
+per ottenere questo vengono ripetuti i passaggi di sostituzione e trasposizione per un numero di volte definito.
+
+**generazione chiavi**
+la chiave non deve essere facilmente indovinabile, le persone non sono in grado di ricordare stringhe di bit random.
+Una soluzione consiste nel generare la chiave attraverso una funzione hash
