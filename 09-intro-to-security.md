@@ -31,3 +31,5 @@ L'integrità dei dati è ottenuta grazie a meccanismi di **hashing**.
 - **peer entity authentication**: chi riceve l'informazione deve assicurarsi che la sorgente del mittente sia quella che ci si aspetta
 l'autenticazione è ottenuta grazie a meccanismi di **firme digitali**.
 
+#### access control
+l'accesso al servizio deve essere limitato solo alle persone autorizzate.
