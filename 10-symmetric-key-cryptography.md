@@ -65,3 +65,7 @@ per ottenere questo vengono ripetuti i passaggi di sostituzione e trasposizione 
 **generazione chiavi**
 la chiave non deve essere facilmente indovinabile, le persone non sono in grado di ricordare stringhe di bit random.
 Una soluzione consiste nel generare la chiave attraverso una funzione hash
+
+#### encryption and authentication
+una volta che i due host hanno la stessa chiave condivisa possono usarla per creare l'HMAC e per cifrare il messaggio.
+![encryption and authentication](./assets/10/encryption-and-authentication.png)
