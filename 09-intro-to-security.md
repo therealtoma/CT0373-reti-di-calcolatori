@@ -21,3 +21,6 @@ i dati scambiati devono essere privati e non devono essere letti da nessuno all'
 Le reti Ethernet permettono lo *sniffing* dei pacchetti degli altri computer.
 Per poter garantire la confidenzialità dei dati, è necessario adottare tecniche di **Encryption**
 
+#### data integrity
+i dati inviati devono raggiungere la destinazione senza essere modificati.
+L'integrità dei dati è ottenuta grazie a meccanismi di **hashing**.
