@@ -33,3 +33,12 @@ l'autenticazione è ottenuta grazie a meccanismi di **firme digitali**.
 
 #### access control
 l'accesso al servizio deve essere limitato solo alle persone autorizzate.
+
+#### system model
+![system model](./assets/09/system-model.png)
+questa astrazione è possible usarla per qualsiasi sistema dove hai:
+- un mittente e un destinatario
+- un nemico che tenta di attaccare il sistema
+
+#### encryption in transit vs E2E encryption
+![transit vs e2e](./assets/09/transit-vs-e2e.png)
