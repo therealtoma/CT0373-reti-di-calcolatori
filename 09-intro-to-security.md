@@ -1,0 +1,19 @@
+# introduction to computer security
+
+#### definizione
+
+è un **processo**, ovvero una serie di azioni che rendono la rete sicura. La sicurezza deve essere garantita in tutti gli aspetti del sistema, dal livello fisico alla gestione degli utenti.
+6 temi per i quali garantire sicurezza:
+- data availability
+- data authentication
+- data integritu
+- secrety of data (confidentiality)
+- access control
+- anonimity
+
+#### service availability
+il servizio deve essere sempre disponibile. Quando la disponibilità è violata, significa che si è vittimi di un attacco **DoS** (Denial of Service).
+Garantire la disponibilità è difficile, ci sono dei limiti fisici, l'attaccante tenterà di saturarli.
+L'obiettivo è quindi quello di rendere questo tipo di attacchi più costosi possibile per gli attaccanti.
+
+#### data confidenciality/secrety
