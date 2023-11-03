@@ -24,3 +24,10 @@ Per poter garantire la confidenzialità dei dati, è necessario adottare tecnich
 #### data integrity
 i dati inviati devono raggiungere la destinazione senza essere modificati.
 L'integrità dei dati è ottenuta grazie a meccanismi di **hashing**.
+
+#### authentication
+è possibile dividere l'autenticazione in 2 categorie:
+- **data origin authentication**: bisogna assicurarsi che le informazioni inviate provengano effettivamente da chi dice di averle indicata.
+- **peer entity authentication**: chi riceve l'informazione deve assicurarsi che la sorgente del mittente sia quella che ci si aspetta
+l'autenticazione è ottenuta grazie a meccanismi di **firme digitali**.
+
