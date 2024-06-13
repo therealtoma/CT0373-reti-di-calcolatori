@@ -15,8 +15,11 @@ Le Reti di Calcolatori sono sistemi di interconnessione tra dispositivi di calco
 Il campo delle reti di calcolatori copre vari aspetti, tra cui:
 
 - **Topologie e Architetture**: Le diverse configurazioni in cui i nodi e le connessioni possono essere organizzati.
+
 - **Protocolli**: Regole e convenzioni utilizzate per la comunicazione tra dispositivi in una rete.
+
 - **Trasmissione dei Dati**: Metodi e meccanismi per inviare dati tra dispositivi attraverso la rete.
+
 - **Sicurezza**: Metodi per proteggere i dati e le informazioni in una rete da accessi non autorizzati o attacchi.
 
 Studiare le reti di calcolatori fornisce le competenze necessarie per progettare, implementare e gestire reti efficienti, sicure e scalabili, nonché per comprendere i principi fondamentali che regolano la comunicazione dei dati nell'era digitale.
