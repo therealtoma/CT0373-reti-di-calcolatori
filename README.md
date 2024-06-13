@@ -5,7 +5,9 @@ Questo repository contiene materiale didattico, appunti e esercizi relativi al c
 ## Contenuti
 
 1. **Materiale Didattico**: Presentazioni, slide e altri materiali forniti dal professore.
+
 2. **Appunti**: Note personali, appunti di lezione e sintesi dei concetti chiave.
+
 3. **Esercizi**: Serie di esercizi pratici e teorici, compresi quelli svolti durante le lezioni e altri per la pratica individuale.
 
 ## Che cosa sono le Reti di Calcolatori?
